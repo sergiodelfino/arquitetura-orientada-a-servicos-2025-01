@@ -8,6 +8,8 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.security.Constraint;
 import org.eclipse.jetty.util.security.Credential;
+import recursos.Calculadora;
+import recursos.CategoriaRecurso;
 
 public class Aplicacao {
     public static void main(String[] args) throws Exception {
@@ -16,6 +18,7 @@ public class Aplicacao {
         ServletContextHandler contexto = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contexto.setContextPath("/api");
         contexto.addServlet(new ServletHolder(new Calculadora()), "/calculadora/*");
+        contexto.addServlet(new ServletHolder(new CategoriaRecurso()), "/categorias");
         servidor.setHandler(contexto);
 
         Constraint restricao = new Constraint();
@@ -25,7 +28,7 @@ public class Aplicacao {
 
         ConstraintMapping mapeamento = new ConstraintMapping();
         mapeamento.setConstraint(restricao);
-        mapeamento.setPathSpec("/calculadora/*");
+        mapeamento.setPathSpec("/*");
 
         UserStore usuarios = new UserStore();
         usuarios.addUser("sergio", Credential.getCredential("q1w2e3r4"), new String[]{"administrador", "usuario"});
@@ -40,6 +43,7 @@ public class Aplicacao {
         seguranca.setAuthenticator(new BasicAuthenticator());
 
         contexto.setSecurityHandler(seguranca);
+
 
         servidor.start();
         servidor.join();

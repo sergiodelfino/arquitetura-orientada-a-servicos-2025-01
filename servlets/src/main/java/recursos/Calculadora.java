@@ -1,3 +1,5 @@
+package recursos;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -34,7 +36,7 @@ public class Calculadora extends HttpServlet {
             case "somar":
                 x = Double.parseDouble(requisicao.getParameter("numero1"));
                 y = Double.parseDouble(requisicao.getParameter("numero2"));
-                resultado = x + y;
+                resultado += x + y;
                 saida.println(resultado);
                 break;
 
