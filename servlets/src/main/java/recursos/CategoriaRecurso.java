@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,5 +37,13 @@ public class CategoriaRecurso extends HttpServlet {
         resposta.setContentType("application/json");
         resposta.setCharacterEncoding("UTF-8");
         resposta.getWriter().write(json);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest requisicao, HttpServletResponse resp) throws ServletException, IOException {
+        InputStream inputStream = requisicao.getInputStream();
+        String json = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        Categoria categoria = mapeador.readValue(json, Categoria.class);
+        System.out.println(json);
     }
 }
