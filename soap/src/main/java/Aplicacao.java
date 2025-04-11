@@ -1,5 +1,6 @@
 import jakarta.xml.ws.Endpoint;
 import servicos.CalculadoraServico;
+import servicos.CategoriaServico;
 import servicos.Exercicio01Servico;
 
 public class Aplicacao {
@@ -12,6 +13,11 @@ public class Aplicacao {
         Endpoint.publish(
                 "http://localhost:8080/exercicio01",
                 new Exercicio01Servico()
+        );
+
+        Endpoint.publish(
+                "http://localhost:8080/categorias",
+                new CategoriaServico()
         );
     }
 }
